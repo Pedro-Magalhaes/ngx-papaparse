@@ -37,14 +37,15 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build ngx-papaparse --configuration production",
-    "test": "ng test ngx-papaparse --browsers PhantomJS --watch=false",
+    "test": "ng test ngx-papaparse --browsers Chrome --watch=false",
+    "test:watch": "ng test ngx-papaparse --browsers ChromeHeadless --watch=true",
     "test:coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "tslib": "^2.6.1",
-    "papaparse": "^5.4.1"
+    "papaparse": "^5.5.3",
+    "tslib": "^2.6.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.0",

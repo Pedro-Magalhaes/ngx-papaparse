@@ -1,6 +1,6 @@
-import {TestBed, inject} from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
-import {Papa} from './papa';
+import { Papa } from './papa';
 
 
 describe('Papa', () => {
@@ -176,5 +176,50 @@ describe('Papa', () => {
         // PhantomJS and Chrome both support workers. Therefore true should always be returned while testing.
         expect(papa.workersSupported).toBe(true);
         expect(papa.workersSupported).toBe(papa._papa.WORKERS_SUPPORTED);
+    }));
+
+    it('should skip line when the config is set to skip one line', inject([Papa], (papa: Papa) => {
+        const csv = '"a","b,","c"""\nd,e,f\ng,h,i';
+        const result = papa.parse(csv, {
+            skipFirstNLines: 1
+        });
+
+        // Check data
+        expect(result.data).toEqual(jasmine.objectContaining([
+            ['d', 'e', 'f'],
+            ['g', 'h', 'i']
+        ]));
+
+        // Expect no errors
+        expect(result.errors).toEqual([]);
+
+        // Expect correct meta-data
+        expect(result.meta).toEqual(jasmine.objectContaining({
+            delimiter: ',',
+            linebreak: '\n'
+        }));
+    }));
+
+    it('should not skip line when the config is set to skip zero lines', inject([Papa], (papa: Papa) => {
+        const csv = '"a","b,","c"""\nd,e,f\ng,h,i';
+        const result = papa.parse(csv, {
+            skipFirstNLines: 0
+        });
+
+        // Check data
+        expect(result.data).toEqual(jasmine.objectContaining([
+            ['a', 'b,', 'c"'],
+            ['d', 'e', 'f'],
+            ['g', 'h', 'i']
+        ]));
+
+        // Expect no errors
+        expect(result.errors).toEqual([]);
+
+        // Expect correct meta-data
+        expect(result.meta).toEqual(jasmine.objectContaining({
+            delimiter: ',',
+            linebreak: '\n'
+        }));
     }));
 });

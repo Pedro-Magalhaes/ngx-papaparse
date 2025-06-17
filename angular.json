@@ -112,7 +112,7 @@
             "main": "examples/test.ts",
             "polyfills": "examples/polyfills.ts",
             "tsConfig": "examples/tsconfig.spec.json",
-            "karmaConfig": "examples/karma.conf.js",
+            "karmaConfig": "karma.conf.js",
             "styles": [
               "examples/styles.css"
             ],

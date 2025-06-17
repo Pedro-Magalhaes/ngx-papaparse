@@ -141,4 +141,10 @@ export interface ParseConfig {
      * An array of delimiters to guess from if the delimiter option is not set.
      */
     delimitersToGuess?: string[];
+
+    /**
+     * The number of lines to skip at the beginning of the file.
+     * This is useful for files that have a header or metadata before the actual data starts.
+     */
+    skipFirstNLines?: number;
 }
